@@ -18,7 +18,7 @@ my $FileHeader = <<"END_MESSAGE";
 <body background="pexels-pixabay-315987.jpg">
 <h1 align=center>Public Hotline Servers</h1>
 <hr>
-<table border=1 align=center>
+<table border=1 align=center bgcolor="#DDDDDD">
 	<tr>
 		<th>Server Name</th>
 		<th>Server URL</th>
