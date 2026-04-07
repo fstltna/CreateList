@@ -1,0 +1,75 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+# Constants
+my $VERSION = "1.0.0";
+my $HOSTLIST = "$ENV{HOME}/.guesthosts";
+my $OUTPUTFILE = "index.html";
+my $OUTPUTDIR = "/var/www/html/HotlineServers";
+my $DEFEDITOR = "/usr/bin/vi";
+my $EDITOR = "";
+my $SawServers = 0;
+my $FileHeader = <<"END_MESSAGE";
+<html>
+<head>
+<title>Public Hotline Servers</title>
+</head>
+<body background="pexels-pixabay-315987.jpg">
+<h1 align=center>Public Hotline Servers</h1>
+<hr>
+<table border=1 align=center>
+	<tr>
+		<th>Server Name</th>
+		<th>Server URL</th>
+	</tr>
+END_MESSAGE
+
+if ($ENV{'EDITOR'})
+{
+        $EDITOR = $ENV{'EDITOR'};
+}
+else
+{
+        $EDITOR = $DEFEDITOR;
+}
+
+
+print "CreateList v$VERSION\n";
+print "=====================\n";
+if (! -f $HOSTLIST)
+{
+	print "Host list file ($HOSTLIST) does not exist. Please create it. One server per line.\n";
+	sleep(3);
+	system ("$EDITOR $HOSTLIST");
+	print "Rerun this script to try again\n";
+	exit 0;
+}
+
+# Open the host list
+open( my $fh => $HOSTLIST) || die "Cannot open $HOSTLIST: $!";
+
+open( my $htmlfilefh => "> $OUTPUTDIR/$OUTPUTFILE") || die "Cannot open $OUTPUTDIR/$OUTPUTFILE: $!";
+print $htmlfilefh "$FileHeader";
+
+# Loop for each line
+while(my $curline = <$fh>)
+{
+	chop($curline);
+	if (substr($curline, 0, 1) eq "#")
+	{
+		# Remove leading '#' character
+		$curline = substr($curline, 1);
+	}
+	#print "Working on server '$curline'\n";
+	(my $ServerURL, my $ServerName) = split(/,/, $curline);
+	#print "ServerURL = $ServerURL\n";
+	print $htmlfilefh "<tr><td>$ServerName</td><td><a href=\"https://$ServerURL\">$ServerURL</a></td></tr>\n";
+	$SawServers += 1;
+}
+close($fh);
+print $htmlfilefh "</table>\n<h2 align=\"center\">Saw $SawServers servers</h2>\n</body>\n</html>\n";
+close($htmlfilefh);
+print "Saw $SawServers servers.\n";
+exit 0;
+
