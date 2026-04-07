@@ -10,15 +10,20 @@ my $OUTPUTDIR = "/var/www/html/HotlineServers";
 my $DEFEDITOR = "/usr/bin/vi";
 my $EDITOR = "";
 my $SawServers = 0;
+my $BackGroundImage = "pexels-pixabay-315987.jpg";
+my $BackGroundColor = "#DDDDDD";
 my $FileHeader = <<"END_MESSAGE";
 <html>
 <head>
 <title>Public Hotline Servers</title>
 </head>
-<body background="pexels-pixabay-315987.jpg">
+<body background="$BackGroundImage">
 <h1 align=center>Public Hotline Servers</h1>
+<center>
+<a href="https://hotline.retro-os.live"><img src="public_hotline_servers_logo.png" alt="Hotline City Public Server List"></a>
 <hr>
-<table border=1 align=center bgcolor="#DDDDDD">
+</center>
+<table border=1 align=center bgcolor="$BackGroundColor">
 	<tr>
 		<th>Server Name</th>
 		<th>Server URL</th>
