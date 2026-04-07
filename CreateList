@@ -18,7 +18,6 @@ my $FileHeader = <<"END_MESSAGE";
 <title>Public Hotline Servers</title>
 </head>
 <body background="$BackGroundImage">
-<h1 align=center>Public Hotline Servers</h1>
 <center>
 <a href="https://hotline.retro-os.live"><img src="public_hotline_servers_logo.png" alt="Hotline City Public Server List"></a>
 <hr>
