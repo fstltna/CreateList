@@ -16,8 +16,15 @@ my $FileHeader = <<"END_MESSAGE";
 <html>
 <head>
 <title>Public Hotline Servers</title>
+<style>
+	body {
+		background-image: url("$BackGroundImage");
+		background-size: cover;
+		background-attachment: fixed;
+	}
+</style>
 </head>
-<body background="$BackGroundImage">
+<body>
 <center>
 <a href="https://hotline.retro-os.live"><img src="public_hotline_servers_logo.png" alt="Hotline City Public Server List"></a>
 <hr>
@@ -72,7 +79,7 @@ while(my $curline = <$fh>)
 	$SawServers += 1;
 }
 close($fh);
-print $htmlfilefh "</table>\n<h2 align=\"center\">Saw $SawServers servers</h2>\n</body>\n</html>\n";
+print $htmlfilefh "<tr><td colspan=2 align=center><h2>Saw $SawServers servers</h2></td></tr>\n</table>\n</body>\n</html>\n";
 close($htmlfilefh);
 print "Saw $SawServers servers.\n";
 exit 0;
